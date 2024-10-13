@@ -1,5 +1,6 @@
 #IMPORTS
 import pygame
+import random
 import math
 import sys
 from pygame.locals import (
@@ -133,6 +134,91 @@ class Enemy(pygame.sprite.Sprite):
         fill_rect = pygame.Rect(self.rect.x, self.rect.y - 10, fill, bar_height)
         pygame.draw.rect(surface, (255, 0, 0), fill_rect)
         pygame.draw.rect(surface, (255, 255, 255), outline_rect, 1)
+
+# COLLECTIBLE CLASS
+class Collectible(pygame.sprite.Sprite):
+    def __init__(self, x, y, type_):
+        super().__init__()
+        self.type = type_
+        self.image = pygame.image.load(f'sprites/{self.type}.png').convert_alpha()
+        self.rect = self.image.get_rect(topleft=(x, y))
+        self.respawn_time = 5000  # Respawn time in milliseconds
+        self.last_collected = pygame.time.get_ticks() - self.respawn_time
+
+    def update(self):
+        current_time = pygame.time.get_ticks()
+        if not self.alive() and current_time - self.last_collected >= self.respawn_time:
+            self.add(self.groups())  # Respawn the collectible
+            self.rect.topleft = (random.randint(0, SCREEN_WIDTH), random.randint(0, SCREEN_HEIGHT))
+
+    def collect(self, player):
+        if self.type == 'health':
+            player.health = min(player.health + 20, 100)  # Cap health at 100
+        elif self.type == 'extra_life':
+            player.lives += 1
+        self.kill()
+        self.last_collected = pygame.time.get_ticks()
+
+# Scoring System
+class Score:
+    def __init__(self):
+        self.score = 0
+        self.font = pygame.font.Font(None, 36)
+
+    def add_points(self, points):
+        self.score += points
+
+    def display(self, screen):
+        score_surf = self.font.render(f'Score: {self.score}', True, (255, 255, 255))
+        screen.blit(score_surf, (10, 10))
+
+# Update Main Game Loop
+def main():
+    clock = pygame.time.Clock()
+    player = Player()
+    score = Score()
+    all_sprites = pygame.sprite.Group(player)
+    collectibles = pygame.sprite.Group()
+    enemies = pygame.sprite.Group()
+
+    # Adding sample collectibles
+    collectibles.add(Collectible(100, 200, 'health'), Collectible(400, 300, 'extra_life'))
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # Check collisions with collectibles
+        for collectible in pygame.sprite.spritecollide(player, collectibles, False):
+            collectible.collect(player)
+
+        # Update all sprites and the score based on defeated enemies
+        all_sprites.update()
+        collectibles.update()
+        
+        # Add points for defeated enemies (Example: 10 points per enemy)
+        for enemy in enemies:
+            if enemy.health <= 0:
+                score.add_points(10)
+                enemy.kill()
+
+        # Draw all elements on the screen
+        screen.fill((0, 0, 0))  # Clear screen
+        all_sprites.draw(screen)
+        collectibles.draw(screen)
+        enemies.draw(screen)
+
+        # Display score on screen
+        score.display(screen)
+
+        pygame.display.flip()
+        clock.tick(FPS)
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()
 
 # SPRITES
 Still = load_image('Standing.png')
