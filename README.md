@@ -8,14 +8,14 @@ This is a clean dark mode interfaced Tkinter app that uses Fast-AgingGAN AI Mode
 - Run the TkinterAgingApp.py file (may require some dependency libraries such as pytorch)
 - Browse or drag and drop images provided in test_face_images folder or image of your choice for execution
 
-    ![image](https://github.com/user-attachments/assets/3df40acf-9636-4167-9493-3be5822f4783)
+<img src="https://github.com/user-attachments/assets/3df40acf-9636-4167-9493-3be5822f4783" width="800" height="500">
 
 **QUESTION 2: DEVELOP A SIDE-SCROLLING PYGAME**
 
 This is an apocalypstic themed side-scrolling pygame. BONUS: A dynamic camera view has been implemented for smooth experience. 
-The game has 3 levels, collectibles, different monsters and an executioner boss. 
+The game has 3 levels, collectibles, different monsters and an executioner boss. New Level activated when all enemies are cleared
 
-![Screenshot 2024-10-15 222304](https://github.com/user-attachments/assets/ed2e36c1-5565-4603-a4d1-bf110a064408)
+<img src="https://github.com/user-attachments/assets/ed2e36c1-5565-4603-a4d1-bf110a064408" width="800" height="500">
 
-![image](https://github.com/user-attachments/assets/5146dbb3-3b95-4085-be63-f8b0167c3819)
+<img src="https://github.com/user-attachments/assets/5146dbb3-3b95-4085-be63-f8b0167c3819" width="800" height="500">
 
