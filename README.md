@@ -10,6 +10,8 @@ This is a clean dark mode interfaced Tkinter app that uses Fast-AgingGAN AI Mode
 
 <img src="https://github.com/user-attachments/assets/3df40acf-9636-4167-9493-3be5822f4783" width="800" height="500">
 
+
+
 **QUESTION 2: DEVELOP A SIDE-SCROLLING PYGAME**
 
 This is an apocalypstic themed side-scrolling pygame. BONUS: A dynamic camera view has been implemented for smooth experience. 
